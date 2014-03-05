@@ -3,7 +3,6 @@ package gobotOpencv
 import (
 	"github.com/hybridgroup/go-opencv/opencv"
 	"github.com/hybridgroup/gobot"
-	"time"
 )
 
 type Camera struct {
@@ -34,7 +33,6 @@ func (me *Camera) Start() bool {
 					gobot.Publish(me.Events["Frame"], image)
 				}
 			}
-			time.Sleep(10 * time.Millisecond)
 		}
 	}()
 	return true
