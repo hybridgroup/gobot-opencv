@@ -9,6 +9,7 @@ type Camera struct {
 	gobot.Driver
 	Adaptor *Opencv
 	camera  *opencv.Capture
+	Source  string
 }
 
 type CameraInterface interface {
@@ -24,7 +25,11 @@ func NewCamera(adaptor *Opencv) *Camera {
 
 func (me *Camera) Start() bool {
 	me.Events["Frame"] = make(chan interface{}, 0)
-	me.camera = opencv.NewCameraCapture(0)
+	if me.Source != "" {
+		me.camera = opencv.NewFileCapture(me.Source)
+	} else {
+		me.camera = opencv.NewCameraCapture(0)
+	}
 	go func() {
 		for {
 			if me.camera.GrabFrame() {
