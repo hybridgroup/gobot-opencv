@@ -27,6 +27,8 @@ func (me *Window) Start() bool {
 	me.window = opencv.NewWindow(me.Name)
 	return true
 }
+func (me *Window) Halt() bool { return true }
+func (me *Window) Init() bool { return true }
 
 func (me *Window) ShowImage(image *opencv.IplImage) {
 	me.window.ShowImage(image)

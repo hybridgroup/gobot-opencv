@@ -42,3 +42,5 @@ func (me *Camera) Start() bool {
 	}()
 	return true
 }
+func (me *Camera) Halt() bool { return true }
+func (me *Camera) Init() bool { return true }
