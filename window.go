@@ -24,7 +24,7 @@ func NewWindow(adaptor *Opencv) *Window {
 
 func (me *Window) Start() bool {
 	opencv.StartWindowThread()
-	me.window = opencv.NewWindow(me.Name)
+	me.window = opencv.NewWindow(me.Name, opencv.CV_WINDOW_NORMAL)
 	return true
 }
 func (me *Window) Halt() bool { return true }
