@@ -22,10 +22,21 @@ func main() {
 	camera.Name = "camera"
 
 	work := func() {
+		var image *cv.IplImage
 		gobot.On(camera.Events["Frame"], func(data interface{}) {
-			i := data.(*cv.IplImage)
-			window.ShowImage(gobotOpencv.DrawRectangles(i, gobotOpencv.DetectFaces(cascade, i)))
+			image = data.(*cv.IplImage)
 		})
+
+		go func() {
+			for {
+				if image != nil {
+					i := image.Clone()
+					faces := gobotOpencv.DetectFaces(cascade, i)
+					i = gobotOpencv.DrawRectangles(i, faces, 0, 255, 0, 5)
+					window.ShowImage(i)
+				}
+			}
+		}()
 	}
 
 	robot := gobot.Robot{

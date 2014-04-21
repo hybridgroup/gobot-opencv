@@ -10,16 +10,15 @@ func loadHaarClassifierCascade(haar string) *opencv.HaarCascade {
 
 func DetectFaces(haar string, image *opencv.IplImage) []*opencv.Rect {
 	cascade := loadHaarClassifierCascade(haar)
-	rect := cascade.DetectObjects(image)
-	return rect
+	return cascade.DetectObjects(image)
 }
 
-func DrawRectangles(image *opencv.IplImage, rect []*opencv.Rect) *opencv.IplImage {
+func DrawRectangles(image *opencv.IplImage, rect []*opencv.Rect, r int, g int, b int, thickness int) *opencv.IplImage {
 	for _, value := range rect {
 		opencv.Rectangle(image,
 			opencv.Point{value.X() + value.Width(), value.Y()},
 			opencv.Point{value.X(), value.Y() + value.Height()},
-			opencv.ScalarAll(255.0), 1, 1, 0)
+			opencv.NewScalar(b, g, r), thickness, 1, 0)
 	}
 	return image
 }
